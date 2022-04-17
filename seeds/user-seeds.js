@@ -3,18 +3,18 @@ const { User, Post } = require('../models');
 
 const userdata = [
   {
-    username: 'alesmonde0',
-    email: 'nwestnedge0@cbc.ca',
+    username: 'meathead0',
+    email: 'meathead@yahoo.com',
     password: 'password123'
   },
   {
-    username: 'jwilloughway1',
-    email: 'rmebes1@sogou.com',
+    username: 'kobebean1',
+    email: 'kobebean@gmail.com.com',
     password: 'password123'
   },
   {
-    username: 'iboddam2',
-    email: 'cstoneman2@last.fm',
+    username: 'Beastmode2',
+    email: 'beastmode2@ymail.fm',
     password: 'password123'
   },
   {
