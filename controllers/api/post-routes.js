@@ -1,14 +1,9 @@
 const router = require('express').Router();
-<<<<<<< HEAD
-const sequelize = require('../../config/connection');
-const { Post, User, Comment, Vote } = require('../../models');
-=======
 const res = require('express/lib/response');
 const { Post, User, Vote, Comment } = require('../../models');
 const { route } = require('./user-routes');
 const { update } = require('../../models/Vote');
 const withAuth = require('../utils/auth');
->>>>>>> develop
 
 // get all users
 router.get('/', (req, res) => {
@@ -64,21 +59,6 @@ router.get('/:id', (req, res) => {
           model: User,
           attributes: ['username']
         }
-<<<<<<< HEAD
-      },
-      {
-        model: User,
-        attributes: ['username']
-      }
-    ]
-  })
-    .then(dbPostData => {
-      if (!dbPostData) {
-        res.status(404).json({ message: 'No post found with this id' });
-        return;
-      }
-      res.json(dbPostData);
-=======
       ]
     })
       .then(dbPostData => {
@@ -100,7 +80,6 @@ router.get('/:id', (req, res) => {
       title: req.body.title,
       post_url: req.body.post_url,
       user_id: req.session.user_id
->>>>>>> develop
     })
     .catch(err => {
       console.log(err);
@@ -145,17 +124,8 @@ router.get('/:id', (req, res) => {
       });
   });
 
-<<<<<<< HEAD
-router.put('/:id', (req, res) => {
-  Post.update(
-    {
-      title: req.body.title
-    },
-    {
-=======
   router.delete('/:id', withAuth, (req, res) => {
     Post.destroy({
->>>>>>> develop
       where: {
         id: req.params.id
       }
