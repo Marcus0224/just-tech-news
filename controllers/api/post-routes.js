@@ -4,6 +4,7 @@ const res = require('express/lib/response');
 const { Post, User, Vote, Comment } = require('../../models');
 const { route } = require('./user-routes');
 const { update } = require('../../models/Vote');
+const withAuth = require('../utils/auth');
 
 // get all users
 router.get('/', (req, res) => {
@@ -67,12 +68,12 @@ router.get('/', (req, res) => {
       });
   });
 
-  router.post('/', (req, res) => {
+  router.post('/', withAuth, (req, res) => {
     // expects {title: 'Taskmaster goes public!', post_url: 'https://taskmaster.com/press', user_id: 1}
     Post.create({
       title: req.body.title,
       post_url: req.body.post_url,
-      user_id: req.body.user_id
+      user_id: req.session.user_id
     })
       .then(dbPostData => res.json(dbPostData))
       .catch(err => {
@@ -118,7 +119,7 @@ router.get('/', (req, res) => {
       });
   });
 
-  router.delete('/:id', (req, res) => {
+  router.delete('/:id', withAuth, (req, res) => {
     Post.destroy({
       where: {
         id: req.params.id
