@@ -1,6 +1,14 @@
 const router = require('express').Router();
+<<<<<<< HEAD
 const sequelize = require('../../config/connection');
 const { Post, User, Comment, Vote } = require('../../models');
+=======
+const res = require('express/lib/response');
+const { Post, User, Vote, Comment } = require('../../models');
+const { route } = require('./user-routes');
+const { update } = require('../../models/Vote');
+const withAuth = require('../utils/auth');
+>>>>>>> develop
 
 // get all users
 router.get('/', (req, res) => {
@@ -56,6 +64,7 @@ router.get('/:id', (req, res) => {
           model: User,
           attributes: ['username']
         }
+<<<<<<< HEAD
       },
       {
         model: User,
@@ -69,6 +78,29 @@ router.get('/:id', (req, res) => {
         return;
       }
       res.json(dbPostData);
+=======
+      ]
+    })
+      .then(dbPostData => {
+        if (!dbPostData) {
+          res.status(404).json({ message: 'No post found with this id' });
+          return;
+        }
+        res.json(dbPostData);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  });
+
+  router.post('/', withAuth, (req, res) => {
+    // expects {title: 'Taskmaster goes public!', post_url: 'https://taskmaster.com/press', user_id: 1}
+    Post.create({
+      title: req.body.title,
+      post_url: req.body.post_url,
+      user_id: req.session.user_id
+>>>>>>> develop
     })
     .catch(err => {
       console.log(err);
@@ -113,12 +145,17 @@ router.get('/:id', (req, res) => {
       });
   });
 
+<<<<<<< HEAD
 router.put('/:id', (req, res) => {
   Post.update(
     {
       title: req.body.title
     },
     {
+=======
+  router.delete('/:id', withAuth, (req, res) => {
+    Post.destroy({
+>>>>>>> develop
       where: {
         id: req.params.id
       }
